@@ -64,7 +64,7 @@ export class WebRTCService {
   }
 
   private async sendData(dc: RTCDataChannel, data: string | ArrayBuffer) {
-    // 如果缓冲区到达 1MB
+    // 如果缓冲区到达 2MB
     // 则阻塞 等待缓冲区数据被清空
     if (dc.bufferedAmount > 1024 * 1024 * 2) {
       await new Promise<void>((resolve) => {
@@ -131,7 +131,7 @@ export class WebRTCService {
     await this.sendData(dc, JSON.stringify(startMsg));
 
     // Send chunks
-    const chunkSize = 128 * 1024; // 64KB
+    const chunkSize = 128 * 1024; // 128KB
     let offset = 0;
     const reader = file.stream().getReader();
     const encoder = new TextEncoder();

@@ -214,9 +214,7 @@ export function useFileTransfer() {
     );
 
     if (existingTransfer) {
-      // Merge files
       existingTransfer.files.push(...payload.files);
-      // Update total size
       existingTransfer.totalSize += payload.files.reduce(
         (acc, f) => acc + f.size,
         0,
