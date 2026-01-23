@@ -131,7 +131,7 @@ const formattedSize = computed(() => {
           </div>
           <div class="h-2 w-full bg-neutral-100 rounded-full overflow-hidden">
             <div
-              class="h-full transition-all duration-300 ease-out"
+              class="h-full"
               :class="
                 transfer.status === 'completed'
                   ? 'bg-emerald-500'

@@ -149,7 +149,7 @@ import { computed } from "vue";
                   class="h-1 w-full bg-neutral-100 rounded-full overflow-hidden"
                 >
                   <div
-                    class="h-full bg-blue-500 transition-all duration-300 ease-out relative overflow-hidden"
+                    class="h-full bg-blue-500 relative overflow-hidden"
                     :style="{ width: `${task.progress}%` }"
                   >
                     <div
