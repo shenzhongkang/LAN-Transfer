@@ -44,6 +44,17 @@ export function useFileTransfer() {
     return users.value.filter((u) => selectedUserIds.value.has(u.id));
   });
 
+  // 粘贴事件
+  const handlePaste = (e: ClipboardEvent) => {
+    if (!e.clipboardData) return;
+    const items = e.clipboardData.items;
+    const imageItem = Array.from(items).find((item) =>
+      item.type.startsWith("image/"),
+    );
+    if (!imageItem) return;
+    addFiles([imageItem.getAsFile()!]);
+  };
+
   onMounted(() => {
     socketService.connect();
     socketService.on("user-info", (user: User) => {
@@ -160,13 +171,19 @@ export function useFileTransfer() {
         }
       }
     });
+
+    // 剪贴板事件
+    document.addEventListener("paste", handlePaste);
   });
 
   onUnmounted(() => {
-    socketService.off("signal", handleSignal);
     socketService.off("invite", handleOfferInvite);
     socketService.off("accept", handleOfferAccept);
     socketService.off("reject", handleOfferReject);
+    socketService.off("offer", handleSignal);
+    socketService.off("answer", handleSignal);
+    socketService.off("ice-candidate", handleSignal);
+    window.removeEventListener("paste", handlePaste);
   });
 
   function handleSignal(message: {
