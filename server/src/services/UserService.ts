@@ -2,11 +2,12 @@ import { User } from "../models/User";
 import { userStore } from "../models/UserStore";
 import { generateUniqueName } from "../utils/nameGenerator";
 import { HOST, PORT } from "../config";
+import { getLocalIp } from "../utils/ip";
 export class UserService {
   createUser(id: string, deviceName: string, ip: string): User {
     const name = generateUniqueName();
     const avatarIndex = Math.floor(Math.random() * 30); // 0-29
-    const avatar = `https://paiyu.site/lan/avatars/adventurer/adventurer-${avatarIndex}.webp`;
+     const avatar = `https://${getLocalIp()}:${PORT}/avatars/adventurer/adventurer-${avatarIndex}.webp`;
     const user: User = {
       id,
       name,
